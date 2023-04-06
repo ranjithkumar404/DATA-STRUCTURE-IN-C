@@ -20,18 +20,20 @@ void push(char value)
         s.item[++s.top] = value;
     }
 }
-char pop()
+int pop()
 {
     if (s.top == -1)
     {
         printf("stack underflow\n");
         exit(0);
     }
-    return (s.item[s.top--]);
+    else
+        return (s.item[s.top--]);
 }
 int empty()
 {
-    if (s.top = = -1)
+    if (s.top == -1)
+
     {
         return 1;
     }
@@ -40,70 +42,52 @@ int empty()
         return 0;
     }
 }
-int precedence(char c)
+int operation(int a, int b, char c)
 {
     switch (c)
     {
     case '^':
-        return 3;
+        return (pow(a, b));
     case '*':
-    case '/':
+        return (a * b);
     case '%':
-        return 2;
+        return (a % b);
+    case '/':
+        return (a / b);
     case '+':
+        return (a + b);
     case '-':
-        return 1;
-    case '(':
-        return 0;
+        return (a - b);
     }
+}
+int evaluate()
+{
+    int i, a, b, ans, value;
+    char symb;
+    for (i = 0; postfix[i] != '\0'; i++)
+    {
+        symb = postfix[i];
+        if ((symb >= '0') && (symb <= '9'))
+        {
+            push((int)(symb - '0'));
+        }
+        else
+        {
+            a = pop();
+            b = pop();
+            value = operation(b, a, symb);
+            push(value);
+        }
+    }
+    ans = pop();
+    return ans;
 }
 void main()
 {
     s.top = -1;
-    printf("Enter the infix expression :\n");
-    gets(infix);
-    convert();
-    printf("The postfix expression is:\n");
-    puts(postfix);
-}
-void convert()
-{
-    int i, pos = 0;
-    char symb, t;
-    for (i = 0; infix[i] != '\0'; i++)
-    {
-        symb = infix[i];
-        switch (symb)
-        {
-        case '(':
-            push(symb);
-            break;
-        case ')':
-            while ((t = pop()) != '(')
-            {
-                postfix[pos++] = t;
-            }
-            break;
-        case '^':
-        case '*':
-        case '/':
-        case '%':
-        case '+':
-        case '-':
-            while ((!empty()) && ((precedence(s.item[s.top])) >= precedence(symb)))
-            {
-                postfix[pos++] = pop();
-            }
-            push(symb);
-            break;
-        default:
-            postfix[pos++] = symb;
-            break;
-        }
-    }
-    while (!empty())
-    {
-        postfix[pos++] = pop();
-    }
-    postfix[pos] = '\0';
+    int ans;
+    printf("Enter the postfix expression\n");
+    gets(postfix);
+    ans = evaluate();
+    printf("The resultant ans is %d\n", ans);
 }
