@@ -30,18 +30,7 @@ int pop()
     else
         return (s.item[s.top--]);
 }
-int empty()
-{
-    if (s.top == -1)
 
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
 int operation(int a, int b, char c)
 {
     switch (c)
