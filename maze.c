@@ -34,7 +34,7 @@ void findpath(int m[50][50], int r, int c, int n)
 int main()
 {
     int r, c;
-    printf("Enter the size of the maze \n");
+    printf("Enter the size of  maze \n");
     scanf("%d", &n);
     printf("Enter the maze in the form of 1's and 0's (1->open & 0->close)");
     for (int i = 0; i < n; i++)
